@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ecora — Designed by Nature. Refined by Purpose.</title>
+
+<!-- ── SEO ── -->
+<meta name="description" content="Ecora creates sustainably crafted eco-giftsets and branded merchandise for modern workspaces. Responsible sourcing, thoughtful design, zero plastic packaging." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://ecora-theta.vercel.app/" />
+
+<!-- ── Open Graph ── -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ecora-theta.vercel.app/" />
+<meta property="og:title" content="Ecora — Designed by Nature. Refined by Purpose." />
+<meta property="og:description" content="Sustainably crafted eco-giftsets and branded merchandise. Responsible sourcing, thoughtful design, zero plastic packaging." />
+<meta property="og:image" content="images/Image-right.webp" />
+
+<!-- ── Twitter Card ── -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ecora — Designed by Nature. Refined by Purpose." />
+<meta name="twitter:description" content="Sustainably crafted eco-giftsets and branded merchandise." />
+<meta name="twitter:image" content="images/Image-right.webp" />
+
+<!-- ── Favicon ── -->
+<link rel="icon" type="image/svg+xml" href="images/Logo.svg" />
+<link rel="apple-touch-icon" href="images/Logo.svg" />
+
+<!-- ── Fonts ── -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet" />
+
+<!-- ── Preload LCP hero image ── -->
+<link rel="preload" as="image" href="images/Image-right.webp" />
+
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-deep:   #1a3d2b;
+    --green-mid:    #2d6a4f;
+    --green-bright: #40916c;
+    --green-light:  #74c69d;
+    --green-pale:   #d8f3dc;
+    --cream:        #f8f4ed;
+    --warm-white:   #fefcf8;
+    --charcoal:     #1c1c1c;
+    --text-muted:   #6b7c6d;
+    --gold:         #c9a96e;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'DM Sans', sans-serif;
+    --nav-h: 5rem;
+    --content-max: 80rem;
+    --space-xs:  0.5rem;
+    --space-sm:  0.875rem;
+    --space-md:  1.5rem;
+    --space-lg:  2.5rem;
+    --space-xl:  4rem;
+    --space-2xl: 7.5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1vw + 0.5rem, 1.05rem);
+    line-height: 1.6;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── Skip to content (a11y) ── */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    background: var(--green-deep);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    z-index: 10000;
+    transition: top .2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* ── Custom Cursor (desktop only) ── */
+  @media (pointer: fine) {
+    body { cursor: none; }
+    #cursor-dot, #cursor-leaf { display: block; }
+  }
+  @media (pointer: coarse) {
+    #cursor-dot, #cursor-leaf { display: none !important; }
+  }
+
+  #cursor-dot {
+    position: fixed;
+    width: 0.5rem; height: 0.5rem;
+    background: var(--green-bright);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width .2s, height .2s, background .2s;
+  }
+
+  #cursor-leaf {
+    position: fixed;
+    width: 2.25rem; height: 2.25rem;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  #cursor-leaf svg { width: 100%; height: 100%; filter: drop-shadow(0 2px 6px rgba(64,145,108,.45)); }
+
+  body:has(a:hover, button:hover) #cursor-dot {
+    width: 0.875rem; height: 0.875rem;
+    background: var(--green-light);
+  }
+
+  .leaf-trail {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9990;
+    width: 1.125rem; height: 1.125rem;
+    opacity: 0;
+    animation: trailFade 0.9s ease-out forwards;
+  }
+
+  @keyframes trailFade {
+    0%   { opacity: .55; transform: translate(-50%,-50%) scale(1) rotate(var(--r)); }
+    100% { opacity: 0;   transform: translate(-50%,-60%) scale(.4) rotate(calc(var(--r) + 40deg)); }
+  }
+
+  /* ── Navbar ── */
+  nav#navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    z-index: 1000;
+    transition: background .4s, box-shadow .4s;
+    background: transparent;
+  }
+
+  nav#navbar.scrolled {
+    background: rgba(248,244,237,.96);
+    -webkit-backdrop-filter: blur(0.75rem);
+    backdrop-filter: blur(0.75rem);
+    box-shadow: 0 1px 1.5rem rgba(26,61,43,.08);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.625rem;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    height: 2.375rem; width: auto;
+    filter: brightness(0) invert(1);
+    transition: filter .4s ease;
+  }
+
+  nav#navbar.scrolled .nav-logo img {
+    filter: brightness(0) saturate(100%)
+            invert(18%) sepia(40%) saturate(800%)
+            hue-rotate(110deg) brightness(85%) contrast(105%);
+  }
+
+  #nav-logo-fb { transition: color .4s ease; }
+  nav#navbar.scrolled #nav-logo-fb { color: var(--green-deep) !important; }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 2.25rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: clamp(0.7rem, 0.6rem + 0.3vw, 0.875rem);
+    font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--cream);
+    transition: color .25s;
+    position: relative;
+  }
+
+  nav#navbar.scrolled .nav-links a { color: var(--green-deep); }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -0.1875rem; left: 0; right: 0; height: 1px;
+    background: var(--green-light);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s;
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after { transform: scaleX(1); }
+
+  .nav-cta {
+    padding: 0.625rem 1.375rem;
+    border: 1.5px solid rgba(255,255,255,.7);
+    border-radius: 3.75rem;
+    color: var(--cream) !important;
+    font-size: clamp(0.68rem, 0.5rem + 0.3vw, 0.8rem) !important;
+    letter-spacing: .1em !important;
+    transition: background .25s, color .25s, border-color .25s !important;
+  }
+
+  nav#navbar.scrolled .nav-cta {
+    border-color: var(--green-bright);
+    color: var(--green-bright) !important;
+  }
+
+  .nav-cta:hover, .nav-cta:focus-visible {
+    background: var(--green-bright) !important;
+    color: white !important;
+    border-color: var(--green-bright) !important;
+  }
+
+  .nav-cta::after { display: none !important; }
+
+  /* hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 0.3125rem;
+    background: none; border: none; padding: 0.25rem;
+    cursor: pointer;
+  }
+
+  .hamburger span {
+    display: block; width: 1.5rem; height: 2px;
+    background: var(--cream);
+    transition: all .3s;
+  }
+
+  nav#navbar.scrolled .hamburger span { background: var(--green-deep); }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(0.4375rem) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-0.4375rem) rotate(-45deg); }
+
+  .mobile-menu {
+    position: fixed; top: var(--nav-h); left: 0; right: 0;
+    background: rgba(248,244,237,.98);
+    -webkit-backdrop-filter: blur(1.25rem);
+    backdrop-filter: blur(1.25rem);
+    padding: 1.5rem 5% 2rem;
+    z-index: 999;
+    transform: translateY(-0.625rem);
+    opacity: 0;
+    transition: all .35s;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+  }
+
+  .mobile-menu a {
+    display: block;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid rgba(26,61,43,.1);
+    text-decoration: none;
+    font-size: 1rem; font-weight: 500;
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--green-deep);
+  }
+
+  .mobile-menu .mobile-cta {
+    display: inline-block; margin-top: 1.25rem;
+    padding: 0.8125rem 1.75rem;
+    background: var(--green-deep);
+    color: white !important; border: none;
+    border-radius: 3.75rem; font-size: .85rem;
+  }
+
+  /* ── Hero ── */
+  #hero {
+    position: relative;
+    min-height: 100svh;
+    min-height: 100vh;
+    display: flex; align-items: center;
+    overflow: hidden;
+    background: var(--green-deep);
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('images/Image-right.webp');
+    background-size: cover; background-position: center;
+    filter: brightness(.38) saturate(1.1);
+    transform: scale(1.05);
+    transition: transform 8s ease-out;
+  }
+
+  #hero.loaded .hero-bg { transform: scale(1); }
+
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(26,61,43,.85) 0%, rgba(26,61,43,.2) 60%, transparent 100%),
+      radial-gradient(ellipse at 80% 50%, rgba(64,145,108,.12) 0%, transparent 60%);
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0 5%;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(2rem, 4vw, 3.75rem);
+    width: 100%;
+    padding-top: var(--nav-h);
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.625rem;
+    font-size: clamp(0.65rem, 0.5rem + 0.3vw, 0.72rem);
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp .8s .3s forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 2rem; height: 1px;
+    background: var(--green-light);
+  }
+
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw + 1rem, 5.5rem);
+    font-weight: 700; line-height: 1.05;
+    color: var(--cream);
+    opacity: 0; animation: fadeUp .9s .5s forwards;
+  }
+
+  .hero-h1 em {
+    font-style: italic; font-weight: 400;
+    color: var(--green-light);
+    display: block;
+    font-size: .8em;
+    margin-top: 0.25rem;
+  }
+
+  .hero-sub {
+    margin-top: 1.25rem;
+    font-size: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
+    line-height: 1.7;
+    color: rgba(248,244,237,.75);
+    max-width: 26.25rem;
+    opacity: 0; animation: fadeUp .9s .7s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    margin-top: 2.25rem;
+    padding: 1rem 1.875rem;
+    background: #25d366;
+    color: white;
+    border-radius: 3.75rem;
+    text-decoration: none;
+    font-size: clamp(0.8rem, 0.7rem + 0.3vw, 0.9rem);
+    font-weight: 500; letter-spacing: .04em;
+    box-shadow: 0 0.5rem 1.875rem rgba(37,211,102,.35);
+    transition: transform .25s, box-shadow .25s;
+    opacity: 0; animation: fadeUp .9s .9s forwards;
+  }
+
+  .hero-cta:hover, .hero-cta:focus-visible {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.75rem 2.5rem rgba(37,211,102,.45);
+  }
+
+  .hero-cta svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+    opacity: 0; animation: fadeIn 1.2s .6s forwards;
+  }
+
+  .hero-visual img {
+    width: min(30rem, 100%);
+    filter: drop-shadow(0 1.25rem 3.75rem rgba(0,0,0,.5));
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: clamp(14rem, 25vw, 22.5rem);
+    height: clamp(14rem, 25vw, 22.5rem);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(64,145,108,.3) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  /* scroll hint */
+  .scroll-hint {
+    position: absolute; bottom: 2.25rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(248,244,237,.5);
+    font-size: clamp(0.6rem, 0.5rem + 0.2vw, 0.7rem);
+    letter-spacing: .15em; text-transform: uppercase;
+    animation: fadeIn 1s 1.5s both;
+    pointer-events: none;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block; width: 1px; height: 2.75rem;
+    background: linear-gradient(to bottom, rgba(248,244,237,.5), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(1); transform-origin: top; }
+    50% { transform: scaleY(.4); transform-origin: top; }
+  }
+
+  /* ── Shared ── */
+  section { position: relative; }
+
+  .container {
+    max-width: var(--content-max);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  .section-label {
+    font-size: clamp(0.6rem, 0.5rem + 0.2vw, 0.7rem);
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--green-bright);
+    margin-bottom: 0.875rem;
+    display: flex; align-items: center; gap: 0.625rem;
+  }
+
+  .section-label::before {
+    content: ''; width: 1.75rem; height: 1px; background: currentColor; flex-shrink: 0;
+  }
+
+  /* ── About ── */
+  #about {
+    padding: clamp(3.75rem, 8vw, 7.5rem) 0;
+    background: var(--warm-white);
+  }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem); align-items: center;
+  }
+
+  .about-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 3.8rem);
+    font-weight: 400; line-height: 1.15;
+    color: var(--green-deep);
+    margin-bottom: 1.75rem;
+  }
+
+  .about-title em { font-style: italic; color: var(--green-bright); }
+
+  .about-body {
+    font-size: clamp(0.875rem, 0.8rem + 0.25vw, 1rem);
+    line-height: 1.85;
+    color: var(--text-muted);
+    margin-bottom: 2.25rem;
+  }
+
+  .read-more {
+    display: inline-flex; align-items: center; gap: 0.625rem;
+    color: var(--green-deep);
+    text-decoration: none;
+    font-size: clamp(0.78rem, 0.7rem + 0.2vw, 0.875rem);
+    font-weight: 500; letter-spacing: .06em;
+    border-bottom: 1.5px solid var(--green-deep);
+    padding-bottom: 0.125rem;
+    transition: gap .25s, color .25s;
+  }
+
+  .read-more:hover, .read-more:focus-visible { gap: 1rem; color: var(--green-bright); border-color: var(--green-bright); }
+
+  .about-image {
+    position: relative;
+    border-radius: 1.5rem; overflow: hidden;
+    aspect-ratio: 4/5;
+    box-shadow: 0 1.5rem 5rem rgba(26,61,43,.15);
+  }
+
+  .about-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease;
+  }
+
+  .about-image:hover img { transform: scale(1.04); }
+
+  .about-badge {
+    position: absolute; bottom: 1.5rem; left: 1.5rem;
+    background: rgba(248,244,237,.95);
+    -webkit-backdrop-filter: blur(0.625rem);
+    backdrop-filter: blur(0.625rem);
+    padding: 1rem 1.375rem;
+    border-radius: 0.875rem;
+    font-size: clamp(0.7rem, 0.6rem + 0.2vw, 0.78rem);
+    color: var(--green-deep);
+    font-weight: 500; letter-spacing: .04em;
+    box-shadow: 0 0.5rem 1.875rem rgba(0,0,0,.1);
+  }
+
+  .about-badge strong {
+    display: block;
+    font-size: clamp(1.2rem, 1rem + 0.5vw, 1.5rem);
+    font-family: var(--font-display); color: var(--green-bright);
+  }
+
+  /* ── Responsibility Banner ── */
+  #responsibility {
+    background: var(--green-pale);
+    overflow: hidden;
+  }
+
+  .resp-banner {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    min-height: clamp(18rem, 30vw, 27.5rem);
+  }
+
+  .resp-image { overflow: hidden; }
+
+  .resp-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s;
+    display: block;
+  }
+
+  .resp-image:hover img { transform: scale(1.04); }
+
+  .resp-center {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: clamp(2rem, 4vw, 3.75rem) clamp(1.5rem, 3vw, 3rem);
+    background: var(--green-pale);
+    text-align: center;
+    min-width: clamp(16rem, 25vw, 21.25rem);
+  }
+
+  .resp-center h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw + 0.5rem, 3rem);
+    font-weight: 700; color: var(--green-deep);
+    line-height: 1.1; margin-bottom: 0.5rem;
+  }
+
+  .resp-center p {
+    font-size: clamp(0.8rem, 0.7rem + 0.25vw, 0.9rem);
+    color: var(--text-muted); margin-bottom: 1.75rem;
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 0.6875rem 1.625rem;
+    border: 1.5px solid var(--green-deep);
+    border-radius: 3.75rem;
+    color: var(--green-deep);
+    text-decoration: none;
+    font-size: clamp(0.75rem, 0.65rem + 0.2vw, 0.82rem);
+    font-weight: 500; letter-spacing: .07em;
+    transition: background .25s, color .25s;
+  }
+
+  .btn-outline:hover, .btn-outline:focus-visible { background: var(--green-deep); color: white; }
+
+  /* ── Pillars ── */
+  #pillars {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillars-bg {
+    position: absolute; inset: 0;
+    background-image: url('images/card2.webp');
+    background-size: cover; background-position: center top;
+    filter: brightness(.25) saturate(.8);
+  }
+
+  .pillars-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(26,61,43,.7) 0%, rgba(26,61,43,.9) 100%);
+  }
+
+  .pillars-inner {
+    position: relative; z-index: 2;
+    padding: clamp(3.75rem, 7vw, 6.25rem) 5%;
+    max-width: var(--content-max); margin: 0 auto;
+  }
+
+  .pillars-header {
+    text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4.375rem);
+  }
+
+  .pillars-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 3.4rem);
+    color: var(--cream); font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .pillars-header h2 em { font-style: italic; color: var(--green-light); }
+
+  .pillars-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.875rem, 2vw, 1.5rem);
+  }
+
+  .pillar-card {
+    background: rgba(248,244,237,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    -webkit-backdrop-filter: blur(0.75rem);
+    backdrop-filter: blur(0.75rem);
+    border-radius: 1.25rem;
+    padding: clamp(1.75rem, 3vw, 2.75rem) clamp(1.25rem, 2.5vw, 2.25rem);
+    transition: background .3s, transform .3s;
+  }
+
+  .pillar-card:hover { background: rgba(248,244,237,.12); transform: translateY(-0.375rem); }
+
+  .pillar-icon {
+    width: 3.75rem; height: 3.75rem;
+    background: rgba(64,145,108,.2);
+    border-radius: 0.875rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .pillar-icon svg { width: 1.75rem; height: 1.75rem; stroke: var(--green-light); fill: none; stroke-width: 1.5; }
+
+  .pillar-card h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 0.9rem + 0.4vw, 1.35rem);
+    color: var(--cream);
+    margin-bottom: 0.875rem; font-weight: 600;
+  }
+
+  .pillar-card p {
+    font-size: clamp(0.8rem, 0.72rem + 0.25vw, 0.9rem);
+    line-height: 1.75;
+    color: rgba(248,244,237,.65);
+    margin-bottom: 1.75rem;
+  }
+
+  .pillar-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--green-light);
+    text-decoration: none;
+    font-size: clamp(0.75rem, 0.65rem + 0.2vw, 0.82rem);
+    letter-spacing: .06em;
+    transition: gap .25s;
+  }
+
+  .pillar-link:hover, .pillar-link:focus-visible { gap: 0.875rem; }
+
+  /* ── Products ── */
+  #products {
+    padding: clamp(3.75rem, 8vw, 7.5rem) 0;
+    background: var(--cream);
+  }
+
+  .products-header {
+    text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4.375rem);
+  }
+
+  .products-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 3.4rem);
+    color: var(--green-deep); font-weight: 400;
+  }
+
+  .products-header h2 em { font-style: italic; color: var(--green-bright); }
+
+  .products-header p {
+    margin-top: 0.875rem;
+    color: var(--text-muted);
+    font-size: clamp(0.875rem, 0.8rem + 0.25vw, 1rem);
+    max-width: 30rem; margin-left: auto; margin-right: auto;
+  }
+
+  .products-showcase {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .product-card {
+    border-radius: 1.25rem; overflow: hidden;
+    background: var(--warm-white);
+    box-shadow: 0 0.25rem 1.5rem rgba(26,61,43,.07);
+    transition: transform .3s, box-shadow .3s;
+  }
+
+  .product-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1.25rem 3.75rem rgba(26,61,43,.14);
+  }
+
+  .product-img {
+    width: 100%; aspect-ratio: 3/2;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .product-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .6s;
+  }
+
+  .product-card:hover .product-img img { transform: scale(1.07); }
+
+  .product-tag {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--green-deep);
+    color: var(--cream);
+    padding: 0.3125rem 0.875rem;
+    border-radius: 3.75rem;
+    font-size: clamp(0.62rem, 0.55rem + 0.15vw, 0.7rem);
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+
+  .product-body { padding: 1.5rem 1.5rem 1.75rem; }
+
+  .product-body h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 0.9rem + 0.3vw, 1.2rem);
+    color: var(--green-deep); font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-body p {
+    font-size: clamp(0.8rem, 0.72rem + 0.2vw, 0.87rem);
+    color: var(--text-muted); line-height: 1.65;
+  }
+
+  /* ── Stats ── */
+  #stats {
+    background: var(--green-deep);
+    padding: clamp(2.5rem, 5vw, 4rem) 0;
+  }
+
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+  }
+
+  .stat-item {
+    padding: 0 1.25rem;
+    border-right: 1px solid rgba(255,255,255,.12);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 3.4rem);
+    font-weight: 700; color: var(--green-light);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: clamp(0.68rem, 0.6rem + 0.2vw, 0.8rem);
+    letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(248,244,237,.55);
+    margin-top: 0.5rem;
+  }
+
+  /* ── CTA ── */
+  #cta-section {
+    padding: clamp(3.75rem, 8vw, 7.5rem) 0;
+    background: var(--warm-white);
+    text-align: center;
+  }
+
+  .cta-inner { max-width: 40rem; margin: 0 auto; }
+
+  .cta-inner h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 3.2rem);
+    color: var(--green-deep); font-weight: 400; line-height: 1.25;
+    margin-bottom: 1.25rem;
+  }
+
+  .cta-inner h2 em { font-style: italic; color: var(--green-bright); }
+
+  .cta-inner p {
+    font-size: clamp(0.875rem, 0.8rem + 0.25vw, 1rem);
+    color: var(--text-muted); line-height: 1.75; margin-bottom: 2.5rem;
+  }
+
+  .cta-buttons {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+
+  .btn-solid {
+    display: inline-flex; align-items: center; gap: 0.625rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--green-deep);
+    color: var(--cream);
+    border-radius: 3.75rem; text-decoration: none;
+    font-size: clamp(0.8rem, 0.72rem + 0.2vw, 0.88rem);
+    font-weight: 500; letter-spacing: .05em;
+    transition: transform .25s, box-shadow .25s;
+  }
+
+  .btn-solid:hover, .btn-solid:focus-visible {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.75rem 2.25rem rgba(26,61,43,.3);
+  }
+
+  .btn-wa {
+    background: #25d366;
+    box-shadow: 0 0.5rem 1.5rem rgba(37,211,102,.25);
+  }
+
+  .btn-wa:hover, .btn-wa:focus-visible { box-shadow: 0 0.75rem 2.25rem rgba(37,211,102,.4); }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--green-deep);
+    color: rgba(248,244,237,.7);
+    padding: clamp(3rem, 6vw, 5rem) 0 0;
+  }
+
+  .footer-grid {
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding-bottom: clamp(2rem, 4vw, 3.75rem);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+
+  .footer-brand img { height: 2.125rem; margin-bottom: 1.25rem; filter: brightness(0) invert(1); }
+
+  .footer-brand p {
+    font-size: clamp(0.78rem, 0.7rem + 0.2vw, 0.87rem);
+    line-height: 1.75; color: rgba(248,244,237,.55);
+    max-width: 17.5rem; margin-bottom: 1.75rem;
+  }
+
+  .footer-social { display: flex; gap: 0.75rem; }
+
+  .footer-social a {
+    width: 2.25rem; height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.2);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(248,244,237,.6);
+    text-decoration: none;
+    transition: background .25s, color .25s;
+  }
+
+  .footer-social a:hover, .footer-social a:focus-visible {
+    background: var(--green-bright); color: white; border-color: transparent;
+  }
+
+  .footer-col h4 {
+    font-size: clamp(0.62rem, 0.55rem + 0.15vw, 0.72rem);
+    letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(248,244,237,.4); margin-bottom: 1.25rem;
+    font-weight: 400;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6875rem; }
+
+  .footer-col ul li a {
+    text-decoration: none;
+    font-size: clamp(0.78rem, 0.7rem + 0.2vw, 0.87rem);
+    color: rgba(248,244,237,.65);
+    transition: color .25s;
+  }
+
+  .footer-col ul li a:hover, .footer-col ul li a:focus-visible { color: var(--green-light); }
+
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 0;
+    font-size: clamp(0.68rem, 0.6rem + 0.15vw, 0.78rem);
+    color: rgba(248,244,237,.35);
+    flex-wrap: wrap; gap: 0.75rem;
+  }
+
+  .footer-bottom a {
+    color: rgba(248,244,237,.35);
+    text-decoration: none;
+    transition: color .25s;
+  }
+
+  .footer-bottom a:hover, .footer-bottom a:focus-visible { color: var(--green-light); }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(1.75rem); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-1rem); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: .6; }
+    50%       { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* Reveal */
+  .reveal {
+    opacity: 0; transform: translateY(2.25rem);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+  .reveal-delay-4 { transition-delay: .4s; }
+
+  /* noscript fallback */
+  .no-js .reveal { opacity: 1; transform: none; }
+
+  /* ── Marquee ── */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--green-bright);
+    padding: 0.875rem 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 3.75rem;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .hero-visual img { animation: none; }
+    .hero-glow { animation: none; }
+  }
+
+  .marquee-track span {
+    font-size: clamp(0.65rem, 0.55rem + 0.2vw, 0.78rem);
+    letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.85);
+    flex-shrink: 0;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+
+  .marquee-track span::before {
+    content: '✦';
+    font-size: .6rem; opacity: .6;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── Focus visible ring ── */
+  :focus-visible {
+    outline: 2px solid var(--green-bright);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 64em) {
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .hero-visual { order: -1; }
+    .hero-visual img { width: min(20rem, 70vw); }
+    .hero-sub { max-width: 100%; margin-left: auto; margin-right: auto; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-image { aspect-ratio: 16/9; }
+    .resp-banner {
+      grid-template-columns: 1fr;
+      grid-template-rows: clamp(12rem, 30vw, 17.5rem) auto clamp(12rem, 30vw, 17.5rem);
+    }
+    .resp-center { min-width: unset; }
+    .pillars-grid { grid-template-columns: 1fr 1fr; }
+    .products-showcase { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .stat-item { border-right: none; padding: 1.25rem; }
+  }
+
+  @media (max-width: 48em) {
+    :root { --nav-h: 4rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .products-showcase { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2.25rem; }
+    .resp-banner {
+      grid-template-rows: clamp(10rem, 25vw, 13.75rem) auto clamp(10rem, 25vw, 13.75rem);
+    }
+  }
+
+  @media (max-width: 30em) {
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .hero-cta { font-size: 0.82rem; padding: 0.875rem 1.375rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Skip to content — keyboard a11y -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- Cursor (desktop only — hidden on touch via CSS) -->
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-leaf" aria-hidden="true">
+  <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="18" cy="20" rx="12" ry="14" fill="#40916c" opacity=".9" transform="rotate(-20,18,18)"/>
+    <line x1="18" y1="34" x2="18" y2="10" stroke="#2d6a4f" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="18" y1="26" x2="11" y2="20" stroke="#2d6a4f" stroke-width=".9" stroke-linecap="round"/>
+    <line x1="18" y1="20" x2="25" y2="14" stroke="#2d6a4f" stroke-width=".9" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<!-- Navbar -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Ecora — home">
+    <img src="images/Logo.svg" alt="Ecora" id="nav-logo-img"
+         onerror="this.style.display='none';document.getElementById('nav-logo-fb').style.display='block';" />
+    <span id="nav-logo-fb" style="display:none;font-family:var(--font-display);font-size:1.6rem;color:var(--cream);font-weight:700;">ecora</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="our-story">Our Story</a></li>
+    <li><a href="sustainable-process">Sustainable Process</a></li>
+    <li><a href="eco-gift-collections">Eco Gift Collections</a></li>
+    <li><a href="corporate-solutions" class="nav-cta">Corporate Solutions</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation" aria-modal="true">
+  <a href="our-story">Our Story</a>
+  <a href="sustainable-process">Sustainable Process</a>
+  <a href="eco-gift-collections">Eco Gift Collections</a>
+  <a href="corporate-solutions" class="mobile-cta">Corporate Solutions</a>
+</div>
+
+<!-- ════════════ MAIN ════════════ -->
+<main id="main-content">
+
+<!-- Hero -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-bg" role="presentation"></div>
+  <div class="hero-overlay" role="presentation"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow" aria-hidden="true">Sustainably Crafted Essentials</div>
+      <h1 class="hero-h1">
+        Designed by<br>Nature.
+        <em>Refined by Purpose.</em>
+      </h1>
+      <p class="hero-sub">
+        Sustainably crafted essentials that bring natural calm into modern workspaces and everyday living.
+      </p>
+      <!-- TODO: Replace +971XXXXXXXXX with real WhatsApp number -->
+      <a href="https://wa.me/+971XXXXXXXXX?text=Hi%20Ecora!%20I%27d%20like%20to%20learn%20more%20about%20your%20eco%20giftsets." class="hero-cta" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp · Get 50% Off
+      </a>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-glow"></div>
+      <img src="images/Leaf.webp" alt="" />
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">Scroll</div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Responsible Sourcing</span>
+    <span>Thoughtful Design</span>
+    <span>Eco Giftsets</span>
+    <span>Natural Materials</span>
+    <span>Conscious Living</span>
+    <span>Sustainable Craft</span>
+    <span>Responsible Sourcing</span>
+    <span>Thoughtful Design</span>
+    <span>Eco Giftsets</span>
+    <span>Natural Materials</span>
+    <span>Conscious Living</span>
+    <span>Sustainable Craft</span>
+  </div>
+</div>
+
+<!-- About -->
+<section id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-label" aria-hidden="true">Ecora Defined</div>
+        <h2 class="about-title" id="about-heading">Where form, function<br>&amp; <em>responsibility</em> meet.</h2>
+        <p class="about-body">
+          ECORA is shaped by restraint, responsibility, and clarity of purpose. It exists to create everyday objects that serve real needs while respecting the natural systems they are drawn from. The brand stands at the intersection of thoughtful design and conscious material choice — where form, function, and responsibility meet without excess.
+        </p>
+        <a href="#pillars" class="read-more">
+          Learn our process
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="about-image reveal reveal-delay-2">
+        <img src="images/Eccora-bag.webp" alt="Ecora canvas tote bag lifestyle shot" loading="lazy" />
+        <div class="about-badge" aria-label="100% Sustainably Sourced">
+          <strong>100%</strong>
+          Sustainably Sourced
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Responsibility Banner -->
+<section id="responsibility" aria-labelledby="resp-heading">
+  <div class="resp-banner">
+    <div class="resp-image">
+      <img src="images/Image-Left.webp" alt="Ecora workspace essentials arrangement" loading="lazy" />
+    </div>
+    <div class="resp-center reveal">
+      <div class="section-label" style="justify-content:center;margin-bottom:1rem;" aria-hidden="true">Our Commitment</div>
+      <h2 id="resp-heading">Responsibility<br>in Every Detail</h2>
+      <p>From source to shelf, every choice is made with intention.</p>
+      <a href="sustainable-process" class="btn-outline">Read more</a>
+    </div>
+    <div class="resp-image">
+      <img src="images/Image-right.webp" alt="Ecora tote bag in a modern workspace" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- Pillars -->
+<section id="pillars" aria-labelledby="pillars-heading">
+  <div class="pillars-bg" role="presentation"></div>
+  <div class="pillars-overlay" role="presentation"></div>
+  <div class="pillars-inner">
+    <div class="pillars-header reveal">
+      <div class="section-label" style="justify-content:center;color:var(--green-light);margin-bottom:1rem;" aria-hidden="true">How We Work</div>
+      <h2 id="pillars-heading">Responsibility <em>in Every Detail</em></h2>
+    </div>
+    <div class="pillars-grid">
+      <article class="pillar-card reveal">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-2-8H7l5 5 5-5h-3V8h-4v6z"/></svg>
+        </div>
+        <h3>Responsible Sourcing</h3>
+        <p>We choose materials with care, prioritizing responsible origins and transparent supply chains. Every source is considered for its impact on people, resources, and the environment.</p>
+        <a href="sustainable-process#pillar-sourcing" class="pillar-link">Read more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </article>
+      <article class="pillar-card reveal reveal-delay-2">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+        </div>
+        <h3>Thoughtful Design</h3>
+        <p>Design at ECORA begins with purpose. Each form is shaped by function, longevity, and restraint — ensuring that what we create remains useful, relevant, and considered over time.</p>
+        <a href="sustainable-process#pillar-design" class="pillar-link">Read more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </article>
+      <article class="pillar-card reveal reveal-delay-3">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <h3>Responsible Production</h3>
+        <p>Our production process is guided by efficiency and accountability. We work to reduce waste, refine methods, and uphold standards that respect both craftsmanship and the resources involved.</p>
+        <a href="sustainable-process#pillar-production" class="pillar-link">Read more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section id="products" aria-labelledby="products-heading">
+  <div class="container">
+    <div class="products-header reveal">
+      <div class="section-label" style="justify-content:center;" aria-hidden="true">Explore Collection</div>
+      <h2 id="products-heading">Everyday Objects, <em>Consciously Crafted</em></h2>
+      <p>From branded totes to workspace essentials — everything your team needs, sustainably made.</p>
+    </div>
+    <div class="products-showcase">
+      <article class="product-card reveal">
+        <div class="product-img">
+          <img src="images/card1.webp" alt="Ecora organic canvas tote bag with rope handles" loading="lazy" />
+          <div class="product-tag" aria-label="Bestseller">Bestseller</div>
+        </div>
+        <div class="product-body">
+          <h3>Canvas Tote Bag</h3>
+          <p>Heavy-duty organic canvas with rope handles. Fully customisable with your logo — the classic Ecora daily carry.</p>
+        </div>
+      </article>
+      <article class="product-card reveal reveal-delay-2">
+        <div class="product-img">
+          <img src="images/card2.webp" alt="Ecora bamboo desk set with wireless charger and pen holder" loading="lazy" />
+          <div class="product-tag" aria-label="New">New</div>
+        </div>
+        <div class="product-body">
+          <h3>Bamboo Desk Essentials</h3>
+          <p>Wireless charging pad, pen holder &amp; smart clock — all sustainably crafted from certified bamboo.</p>
+        </div>
+      </article>
+      <article class="product-card reveal reveal-delay-3">
+        <div class="product-img">
+          <img src="images/card3.webp" alt="Ecora custom eco giftset with branded packaging" loading="lazy" />
+          <div class="product-tag" aria-label="Custom">Custom</div>
+        </div>
+        <div class="product-body">
+          <h3>Custom Eco Giftset</h3>
+          <p>Curated branded giftsets tailored to your brand identity. Choose materials, colours, and print your logo.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section id="stats" aria-label="Key statistics">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number" aria-label="500 plus brands served">500+</div>
+        <div class="stat-label">Brands Served</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number" aria-label="100 percent sustainable materials">100%</div>
+        <div class="stat-label">Sustainable Materials</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number" aria-label="50 thousand plus products delivered">50K+</div>
+        <div class="stat-label">Products Delivered</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-number" aria-label="Zero plastic in packaging">0</div>
+        <div class="stat-label">Plastic in Packaging</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta-section" aria-labelledby="cta-heading">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="section-label" style="justify-content:center;" aria-hidden="true">Get Started</div>
+      <h2 id="cta-heading">Ready to build your <em>Eco Giftset?</em></h2>
+      <p>Chat with us on WhatsApp and get your first eco-giftset at 50% off. Our team will guide you through customisation, materials, and delivery.</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/+971XXXXXXXXX?text=Hi%20Ecora!%20I%27d%20like%20to%20build%20an%20eco%20giftset." class="btn-solid btn-wa" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+        <a href="mailto:hello@ecora.com" class="btn-solid">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main><!-- /#main-content -->
+
+<!-- Footer -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/Logo.svg" alt="Ecora"
+             onerror="this.style.display='none';document.getElementById('footer-logo-fb').style.display='block';" />
+        <span id="footer-logo-fb" style="display:none;font-family:var(--font-display);font-size:1.8rem;color:var(--cream);font-weight:700;">ecora</span>
+        <p>ECORA creates objects that serve clear functions and fit naturally into daily routines. No decorative excess, no unnecessary complexity.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/ecora" aria-label="Ecora on Instagram" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://wa.me/+971XXXXXXXXX" aria-label="Ecora on WhatsApp" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/ecora" aria-label="Ecora on LinkedIn" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore Collection</h4>
+        <ul>
+          <li><a href="our-story">Our Story</a></li>
+          <li><a href="sustainable-process">Sustainable Process</a></li>
+          <li><a href="eco-gift-collections">Eco Gift Collections</a></li>
+          <li><a href="corporate-solutions">Corporate Solutions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <ul>
+          <li><a href="mailto:hello@ecora.com">Email Us</a></li>
+          <li><a href="https://wa.me/+971XXXXXXXXX" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/ecora" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="tel:+971XXXXXXXXX">Call Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="eco-gift-collections">Catalogue</a></li>
+          <li><a href="our-story#testimonials">Testimonials</a></li>
+          <li><a href="mailto:hello@ecora.com?subject=Joining%20Ecora">Join Us</a></li>
+          <li><a href="corporate-solutions">More Brands</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="footer-year">2025</span> Ecora. All rights reserved.</span>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="privacy">Privacy Policy</a>
+        <a href="terms">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ═══════════════════════════════════════════
+     ECORA JS — cursor, navbar, mobile menu,
+     scroll reveal, counter animation
+  ═══════════════════════════════════════════ */
+
+  // Dynamic copyright year
+  const yearEl = document.getElementById('footer-year');
+  if (yearEl) {
+    const y = new Date().getFullYear();
+    if (y > 2025) yearEl.textContent = '2025–' + y;
+  }
+
+  // ── Cursor (pointer device only) ──
+  const dot  = document.getElementById('cursor-dot');
+  const leaf = document.getElementById('cursor-leaf');
+
+  if (dot && leaf && window.matchMedia('(pointer: fine)').matches) {
+    let mx = -100, my = -100, lx = -100, ly = -100, lastTrail = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+      const now = Date.now();
+      if (now - lastTrail > 120) { lastTrail = now; spawnTrailLeaf(mx, my); }
+    });
+
+    (function animLeaf() {
+      lx += (mx - lx) * 0.10;
+      ly += (my - ly) * 0.10;
+      leaf.style.left = lx + 'px';
+      leaf.style.top  = ly + 'px';
+      const angle = Math.atan2(my - ly, mx - lx) * (180 / Math.PI) - 90;
+      leaf.style.transform = `translate(-50%,-50%) rotate(${angle}deg)`;
+      requestAnimationFrame(animLeaf);
+    })();
+
+    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; leaf.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; leaf.style.opacity = '1'; });
+  }
+
+  function spawnTrailLeaf(x, y) {
+    const el = document.createElement('div');
+    el.className = 'leaf-trail';
+    el.setAttribute('aria-hidden', 'true');
+    el.style.setProperty('--r', (Math.random() * 60 - 30) + 'deg');
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+    el.innerHTML = `<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="9" cy="10" rx="6" ry="7" fill="#40916c" opacity=".8" transform="rotate(-15,9,9)"/>
+      <line x1="9" y1="17" x2="9" y2="5" stroke="#2d6a4f" stroke-width=".8" stroke-linecap="round"/>
+    </svg>`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 900);
+  }
+
+  // ── Navbar scroll ──
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // ── Hamburger / mobile menu ──
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', e => {
+      if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.focus();
+      }
+    });
+  }
+
+  // ── Hero load animation ──
+  const heroEl = document.getElementById('hero');
+  if (heroEl) setTimeout(() => heroEl.classList.add('loaded'), 100);
+
+  // ── Scroll reveal ──
+  const revealEls = document.querySelectorAll('.reveal');
+  if (revealEls.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
+
+  // ── Counter animation ──
+  function animateCounter(el, target, suffix) {
+    if (!el || isNaN(target) || target < 0) return;
+    // Skip if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = target + suffix;
+      return;
+    }
+    let current = 0;
+    const step = target / 60;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = (Number.isInteger(target) ? Math.floor(current) : current.toFixed(0)) + suffix;
+    }, 25);
+  }
+
+  const statsSection = document.getElementById('stats');
+  if (statsSection && 'IntersectionObserver' in window) {
+    const statsObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.stat-number').forEach(n => {
+            const raw    = n.textContent.trim();
+            const num    = parseFloat(raw);
+            const suffix = raw.replace(/[\d.]/g, '');
+            animateCounter(n, num, suffix);
+          });
+          statsObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    statsObserver.observe(statsSection);
+  }
+</script>
+</body>
+</html>
